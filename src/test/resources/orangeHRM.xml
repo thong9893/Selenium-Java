@@ -1,0 +1,8 @@
+<suite name="Orange HRM 5">
+    <test name="Run on Chrome" preserve-order="true">
+            <parameter name="browser" value="chrome"/>
+            <classes>
+                <class name=""/>
+            </classes>
+    </test>
+</suite>
