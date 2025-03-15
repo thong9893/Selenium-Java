@@ -66,7 +66,7 @@ public class BasePage {
     }
     public static void sendKeyToElement(String locator, String keyToSend){
         Keys key = null;
-        if(GlobalConstance.OS_NAME.equalsIgnoreCase("windows")){
+        if(GlobalConstance.OS_NAME.toLowerCase().contains(("windows"))){
             key = Keys.CONTROL;
         }else {
             key = Keys.COMMAND;

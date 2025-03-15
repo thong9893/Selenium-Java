@@ -2,7 +2,7 @@
     <test name="Run on Chrome" preserve-order="true">
             <parameter name="browser" value="chrome"/>
             <classes>
-                <class name=""/>
+                <class name="specs.PIM_01_Employee"/>
             </classes>
     </test>
 </suite>

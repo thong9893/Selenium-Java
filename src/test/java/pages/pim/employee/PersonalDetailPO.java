@@ -2,6 +2,7 @@ package pages.pim.employee;
 
 import org.openqa.selenium.Dimension;
 import pageUIs.PersonalDetailPageUI;
+import pojoData.EmployeeInfo;
 
 import static support.BasePage.*;
 
@@ -97,5 +98,12 @@ public class PersonalDetailPO extends EmployeeTabs {
         waitForElementSelected(PersonalDetailPageUI.GENDER_RADIO_BUTTON,gender);
         return isElementSelected(PersonalDetailPageUI.GENDER_RADIO_BUTTON,gender);
     }
-
+    public void setPersonalDetail(EmployeeInfo employeeInfo){
+        enterToDriverLicenseTextbox(employeeInfo.getDriverLicenseNumber());
+        enterToLicenseExpiredDateTextbox(employeeInfo.getLicenseExpiredDate());
+        selectNationalityDropdown(employeeInfo.getNationality());
+        selectMaritalStatusDropdown(employeeInfo.getMaritalStatus());
+        enterToDateOfBirthTextbox(employeeInfo.getDateOfBirth());
+        selectGenderRadioButton(employeeInfo.getGenderStatus());
+    }
 }

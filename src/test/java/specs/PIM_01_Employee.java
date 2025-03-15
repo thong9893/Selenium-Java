@@ -4,6 +4,7 @@ import org.openqa.selenium.Dimension;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pages.DashboardPO;
 import pages.LoginPO;
@@ -11,38 +12,35 @@ import pages.PageGenerator;
 import pages.pim.employee.AddNewEmployeePO;
 import pages.pim.employee.EmployeeListPO;
 import pages.pim.employee.PersonalDetailPO;
-import support.BaseTest;
+import pojoData.EmployeeInfo;
 import support.GlobalConstance;
 
 import static support.BasePage.*;
 
-public class PIM_01_Employee extends BaseTest {
+public class PIM_01_Employee {
     private LoginPO loginPage;
     private DashboardPO dashboardPage;
     private EmployeeListPO employeeListPage;
     private AddNewEmployeePO addNewEmployeePage;
     private PersonalDetailPO personalDetailPage;
-    private String employeeID, firstName, lastName, editFirstName, editLastName;
-    private String driverLicenseNumber, licenseExpiredDate, nationality, maritalStatus, dateOfBirth, gender;
     private String avatarImageName = "HoChiMinh.jpg";
-
-
+    private EmployeeInfo employeeInfo;
+    @Parameters({"browser"})
     @BeforeClass
-    void setup() {
-        openBrowser("edge");
+    void setup(String browser) {
+        openBrowser(browser);
         getURL(GlobalConstance.SITE_URL);
         loginPage = PageGenerator.getLoginPage();
+        employeeInfo = EmployeeInfo.getEmployeeInfo();
 
-        firstName = "John";
-        lastName = "Wick";
-        editFirstName = "Donal";
-        editLastName = "Trump";
-        driverLicenseNumber = "012345678";
-        licenseExpiredDate = "1999-12-15";
-        nationality = "American";
-        maritalStatus = "Married";
-        dateOfBirth = "1999-03-15";
-        gender = "Male";
+        employeeInfo.setFirstName("John");
+        employeeInfo.setLastName("Wick");
+        employeeInfo.setDriverLicenseNumber("012345678");
+        employeeInfo.setLicenseExpiredDate("1999-15-12");
+        employeeInfo.setNationality("American");
+        employeeInfo.setMaritalStatus("Married");
+        employeeInfo.setDateOfBirth("1999-15-03");
+        employeeInfo.setGenderStatus("Male");
 
         loginPage.enterToUserNameTextbox(GlobalConstance.ADMIN_USERNAME);
         loginPage.enterToPasswordTextbox(GlobalConstance.ADMIN_PASSWORD);
@@ -52,10 +50,9 @@ public class PIM_01_Employee extends BaseTest {
     public void Employee_01_Add_New(){
         employeeListPage = dashboardPage.clickToPIMPage();
         addNewEmployeePage = employeeListPage.clickToEmployeeButton();
-        addNewEmployeePage.enterToFirstNameTextbox(firstName);
-        addNewEmployeePage.enterToLastNameTextbox(lastName);
-        employeeID = addNewEmployeePage.getEmployeeID();
-
+        addNewEmployeePage.enterToFirstNameTextbox(employeeInfo.getFirstName());
+        addNewEmployeePage.enterToLastNameTextbox(employeeInfo.getLastName());
+        employeeInfo.setEmployeeId(addNewEmployeePage.getEmployeeID());
         personalDetailPage = addNewEmployeePage.clickToSaveButtonAtEmployeeContainer();
     }
     @Test(priority = 2)
@@ -71,31 +68,26 @@ public class PIM_01_Employee extends BaseTest {
     @Test(priority = 3)
     public void Employee_3_Personal_Details(){
         personalDetailPage.openPersonalDetailPage();
-        personalDetailPage.enterToFirstNameTextbox(editFirstName);
-        personalDetailPage.enterToLastNameTextbox(editLastName);
+        personalDetailPage.enterToFirstNameTextbox(employeeInfo.getFirstName());
+        personalDetailPage.enterToLastNameTextbox(employeeInfo.getLastName());
 
-        Assert.assertEquals(personalDetailPage.getEmployeeID(),employeeID);
+        Assert.assertEquals(personalDetailPage.getEmployeeID(),employeeInfo.getEmployeeId());
 
-        personalDetailPage.enterToDriverLicenseTextbox(driverLicenseNumber);
-        personalDetailPage.enterToLicenseExpiredDateTextbox(licenseExpiredDate);
-        personalDetailPage.selectNationalityDropdown(nationality);
-        personalDetailPage.selectMaritalStatusDropdown(maritalStatus);
-        personalDetailPage.enterToDateOfBirthTextbox(dateOfBirth);
-        personalDetailPage.selectGenderRadioButton(gender);
+        personalDetailPage.setPersonalDetail(employeeInfo);
         personalDetailPage.clickSaveButtonAtPersonalDetailContainer();
 
         Assert.assertTrue(isSuccessMessageDisplayed());
         waitAllLoadingIconInvisible();
 
-        Assert.assertEquals(personalDetailPage.getFirstNameTextboxValue(),editFirstName);
-        Assert.assertEquals(personalDetailPage.getLastNameTextboxValue(),editLastName);
-        Assert.assertEquals(personalDetailPage.getEmployeeID(),employeeID);
-        Assert.assertEquals(personalDetailPage.getDriverLicenseTextboxValue(),driverLicenseNumber);
-        Assert.assertEquals(personalDetailPage.getLicenseExpiredDateTextboxValue(),licenseExpiredDate);
-        Assert.assertEquals(personalDetailPage.getNationalityDropdownValue(),nationality);
-        Assert.assertEquals(personalDetailPage.getMaritalStatusDropdownValue(),maritalStatus);
-        Assert.assertEquals(personalDetailPage.getDateOfBirthTextboxValue(),dateOfBirth);
-        Assert.assertTrue(personalDetailPage.isMaleGenderRadioSelected(gender));
+        Assert.assertEquals(personalDetailPage.getFirstNameTextboxValue(),employeeInfo.getFirstName());
+        Assert.assertEquals(personalDetailPage.getLastNameTextboxValue(),employeeInfo.getLastName());
+        Assert.assertEquals(personalDetailPage.getEmployeeID(),employeeInfo.getEmployeeId());
+        Assert.assertEquals(personalDetailPage.getDriverLicenseTextboxValue(),employeeInfo.getDriverLicenseNumber());
+        Assert.assertEquals(personalDetailPage.getLicenseExpiredDateTextboxValue(),employeeInfo.getLicenseExpiredDate());
+        Assert.assertEquals(personalDetailPage.getNationalityDropdownValue(),employeeInfo.getNationality());
+        Assert.assertEquals(personalDetailPage.getMaritalStatusDropdownValue(),employeeInfo.getMaritalStatus());
+        Assert.assertEquals(personalDetailPage.getDateOfBirthTextboxValue(),employeeInfo.getDateOfBirth());
+        Assert.assertTrue(personalDetailPage.isMaleGenderRadioSelected(employeeInfo.getGenderStatus()));
     }
     @AfterClass
     void tearDown(){

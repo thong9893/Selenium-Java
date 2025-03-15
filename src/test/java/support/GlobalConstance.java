@@ -3,9 +3,9 @@ package support;
 import java.io.File;
 
 public class GlobalConstance {
-    public static final String SITE_URL = "http://localhost:90/orangehrm5/";
-    public static final String ADMIN_USERNAME = "admin";
-    public static final String ADMIN_PASSWORD = "Admin12345678@";
+    public static final String SITE_URL = "https://opensource-demo.orangehrmlive.com/";
+    public static final String ADMIN_USERNAME = "Admin";
+    public static final String ADMIN_PASSWORD = "admin123";
     public static final String PROJECT_PATH = System.getProperty("user.dir");
     public  static final String SEPARATOR = File.separator;
     public static final String UPLOAD_PATH = PROJECT_PATH + SEPARATOR +"uploadFiles" + SEPARATOR;
