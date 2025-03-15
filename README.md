@@ -10,7 +10,7 @@ Welcome to my GitHub profile!
 
   💡 Skills and Knowledge:
 
-         🎯 Manual Testing (Functional, Regression, Exploratory, UAT).
+         🎯 Manual Testing.
           
          🎯 Knowledge in Selenium with Java (Basic), Performance Testing with JMeter (Basic), API Testing with Postman (Basic).
 
