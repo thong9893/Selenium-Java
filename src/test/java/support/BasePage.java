@@ -19,7 +19,6 @@ public class BasePage {
     public static WebDriverWait wait;
     public static WebDriver driver;
     public static ChromeOptions options;
-    @Step("Open Browser")
     public static void openBrowser(String browser) {
         if (browser.equalsIgnoreCase("chrome")) {
             options = new ChromeOptions();
@@ -43,17 +42,8 @@ public class BasePage {
     public static void waitForElementVisible(String locator){
         getWait().until(ExpectedConditions.visibilityOfElementLocated(getByLocator(locator)));
     }
-    public static void waitForAllElementVisible(String locator){
-        getWait().until(ExpectedConditions.visibilityOfAllElementsLocatedBy(getByLocator(locator)));
-    }
-    public static void waitForElementInVisible(String locator){
-        getWait().until(ExpectedConditions.invisibilityOfElementLocated(getByLocator(locator)));
-    }
     public static boolean waitForListElementInVisible(String locator){
        return getWait().until(ExpectedConditions.invisibilityOfAllElements(getListElement((locator))));
-    }
-    public static void waitForAllElementInVisible(String locator){
-        getWait().until(ExpectedConditions.invisibilityOfAllElements(getListElement(locator)));
     }
     public static void waitForElementClickAble(String locator ,String...elementName){
         getWait().until(ExpectedConditions.elementToBeClickable(getByLocator(getDynamicString(locator,elementName))));
@@ -175,19 +165,6 @@ public class BasePage {
             return true;
         }
         return false;
-    }
-    public static boolean isElementUnDisPlayed(String locator){
-        overrideGlobalTimeout(5);
-        List<WebElement> elements = getListElement(locator);
-        overrideGlobalTimeout(30);
-        if (elements.size() == 0){
-            return true;
-        } else if (elements.size() > 0 && !elements.get(0).isDisplayed()) {
-            return  true;
-        }else {
-            return false;
-        }
-
     }
     public static String getElementAttribute(String locator, String attributeName){
         return  getElement(locator).getAttribute(attributeName);
