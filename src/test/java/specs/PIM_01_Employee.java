@@ -6,23 +6,24 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pages.DashboardPO;
-import pages.LoginPO;
+import pages.DashboardPage;
+import pages.LoginPage;
 import pages.PageGenerator;
-import pages.pim.employee.AddNewEmployeePO;
-import pages.pim.employee.EmployeeListPO;
-import pages.pim.employee.PersonalDetailPO;
+import pages.pim.employee.AddNewEmployeePage;
+import pages.pim.employee.EmployeeListPage;
+import pages.pim.employee.PersonalDetailPage;
 import pojoData.EmployeeInfo;
+import support.BasePage;
 import support.GlobalConstance;
 
 import static support.BasePage.*;
 
-public class PIM_01_Employee {
-    private LoginPO loginPage;
-    private DashboardPO dashboardPage;
-    private EmployeeListPO employeeListPage;
-    private AddNewEmployeePO addNewEmployeePage;
-    private PersonalDetailPO personalDetailPage;
+public class PIM_01_Employee extends BasePage {
+    private LoginPage loginPage;
+    private DashboardPage dashboardPage;
+    private EmployeeListPage employeeListPage;
+    private AddNewEmployeePage addNewEmployeePage;
+    private PersonalDetailPage personalDetailPage;
     private String avatarImageName = "HoChiMinh.jpg";
     private EmployeeInfo employeeInfo;
     @Parameters({"browser"})

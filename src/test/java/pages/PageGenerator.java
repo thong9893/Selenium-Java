@@ -2,26 +2,26 @@ package pages;
 
 import pages.pim.employee.*;
 public class PageGenerator {
-    public static LoginPO getLoginPage(){
-        return new LoginPO();
+    public static LoginPage getLoginPage(){
+        return new LoginPage();
     }
-    public static DashboardPO getDashboardPage(){
-        return new DashboardPO();
+    public static DashboardPage getDashboardPage(){
+        return new DashboardPage();
     }
-    public static AddNewEmployeePO getAddNewEmployeePage(){
-        return new AddNewEmployeePO();
+    public static AddNewEmployeePage getAddNewEmployeePage(){
+        return new AddNewEmployeePage();
     }
-    public static EmployeeListPO getEmployeeListPage(){
-        return new EmployeeListPO();
+    public static EmployeeListPage getEmployeeListPage(){
+        return new EmployeeListPage();
     }
-    public static PersonalDetailPO getPersonalDetailPage(){
-        return new PersonalDetailPO();
+    public static PersonalDetailPage getPersonalDetailPage(){
+        return new PersonalDetailPage();
     }
-    public static ContactDetailPO getContactDetailPage(){
-        return new ContactDetailPO();
+    public static ContactDetailPage getContactDetailPage(){
+        return new ContactDetailPage();
     }
-    public static EmergencyContactPO getEmergencyContactPage(){
-        return new EmergencyContactPO();
+    public static EmergencyContactPage getEmergencyContactPage(){
+        return new EmergencyContactPage();
     }
 
 }

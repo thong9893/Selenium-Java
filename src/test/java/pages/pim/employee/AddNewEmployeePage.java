@@ -2,10 +2,11 @@ package pages.pim.employee;
 
 import pageUIs.AddNewEmployeePageUI;
 import pages.PageGenerator;
+import support.BasePage;
 
 import static support.BasePage.*;
 
-public class AddNewEmployeePO {
+public class AddNewEmployeePage extends BasePage {
     public void enterToFirstNameTextbox(String firstName) {
         waitForElementVisible(AddNewEmployeePageUI.FIRSTNAME_TEXTBOX);
         sendKeyToElement(AddNewEmployeePageUI.FIRSTNAME_TEXTBOX,firstName);
@@ -18,7 +19,7 @@ public class AddNewEmployeePO {
         waitForElementVisible(AddNewEmployeePageUI.EMPLOYEE_ID_TEXTBOX);
         return getElementAttribute(AddNewEmployeePageUI.EMPLOYEE_ID_TEXTBOX);
     }
-    public PersonalDetailPO clickToSaveButtonAtEmployeeContainer() {
+    public PersonalDetailPage clickToSaveButtonAtEmployeeContainer() {
         waitForElementClickAble(AddNewEmployeePageUI.SAVE_BUTTON_AT_ADD_EMPLOYEE_CONTAINER);
         clickToElement(AddNewEmployeePageUI.SAVE_BUTTON_AT_ADD_EMPLOYEE_CONTAINER);
         return PageGenerator.getPersonalDetailPage();

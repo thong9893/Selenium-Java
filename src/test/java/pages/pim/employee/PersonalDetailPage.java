@@ -6,7 +6,7 @@ import pojoData.EmployeeInfo;
 
 import static support.BasePage.*;
 
-public class PersonalDetailPO extends EmployeeTabs {
+public class PersonalDetailPage extends EmployeeTabs {
     public void clickToEmployeeAvatarImage() {
         waitForElementClickAble(PersonalDetailPageUI.EMPLOYEE_IMAGE);
         clickToElement(PersonalDetailPageUI.EMPLOYEE_IMAGE);
