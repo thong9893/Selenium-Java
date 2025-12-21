@@ -1,12 +1,14 @@
 package pages.pim.employee;
 
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.WebDriver;
 import pageUIs.PersonalDetailPageUI;
-import pojoData.EmployeeInfo;
-
-import static support.BasePage.*;
+import testData.pojoData.EmployeeInfo;
 
 public class PersonalDetailPage extends EmployeeTabs {
+    public PersonalDetailPage(WebDriver driver){
+        super(driver);
+    }
     public void clickToEmployeeAvatarImage() {
         waitForElementClickAble(PersonalDetailPageUI.EMPLOYEE_IMAGE);
         clickToElement(PersonalDetailPageUI.EMPLOYEE_IMAGE);

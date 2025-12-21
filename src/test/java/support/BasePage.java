@@ -1,42 +1,25 @@
 package support;
 
-import io.qameta.allure.Step;
+
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageUIs.BasePageUI;
-
 import java.time.Duration;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class BasePage {
     public WebDriverWait wait;
     public WebDriver driver;
-    public ChromeOptions options;
-    public void openBrowser(String browser) {
-        if (browser.equalsIgnoreCase("chrome")) {
-            options = new ChromeOptions();
-            options.addArguments("--start-maximized");
-            driver = new ChromeDriver(options);
-        } else if (browser.equalsIgnoreCase("firefox")) {
-            driver = new FirefoxDriver();
-        } else if (browser.equalsIgnoreCase("edge")) {
-            driver = new EdgeDriver();
-        } else if (browser.equalsIgnoreCase("safari")) {
-            driver = new SafariDriver();
-        } else {
-            throw new IllegalArgumentException("unexpectedValue" + browser);
-        }
-        wait = new WebDriverWait(driver, Duration.ofMillis(20000));
+
+    public BasePage(WebDriver driver){
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(GlobalConstance.LONG_TIMEOUT));
     }
     public WebDriverWait getWait(){
-        wait = new WebDriverWait(driver, Duration.ofSeconds(GlobalConstance.LONG_TIMEOUT));
+        if (wait == null){
+            wait = new WebDriverWait(driver, Duration.ofSeconds(GlobalConstance.LONG_TIMEOUT));
+        }
         return wait;
     }
     public void waitForElementVisible(String locator){

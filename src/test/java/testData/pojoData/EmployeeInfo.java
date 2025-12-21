@@ -1,4 +1,4 @@
-package pojoData;
+package testData.pojoData;
 
 public class EmployeeInfo {
     private String employeeId;

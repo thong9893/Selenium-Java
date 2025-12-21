@@ -2,38 +2,25 @@ package specs;
 
 import org.openqa.selenium.Dimension;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pages.DashboardPage;
-import pages.LoginPage;
-import pages.PageGenerator;
 import pages.pim.employee.AddNewEmployeePage;
 import pages.pim.employee.EmployeeListPage;
 import pages.pim.employee.PersonalDetailPage;
-import pojoData.EmployeeInfo;
-import support.BasePage;
-import support.GlobalConstance;
+import testData.pojoData.EmployeeInfo;
+import support.BaseTest;
 
-import static support.BasePage.*;
-
-public class PIM_01_Employee extends BasePage {
-    private LoginPage loginPage;
-    private DashboardPage dashboardPage;
+public class PIM_01_Employee extends BaseTest {
+    
     private EmployeeListPage employeeListPage;
     private AddNewEmployeePage addNewEmployeePage;
     private PersonalDetailPage personalDetailPage;
     private String avatarImageName = "HoChiMinh.jpg";
     private EmployeeInfo employeeInfo;
-    @Parameters({"browser"})
+    
     @BeforeClass
-    void setup(String browser) {
-        openBrowser(browser);
-        getURL(GlobalConstance.SITE_URL);
-        loginPage = PageGenerator.getLoginPage();
+    public void initData(){
         employeeInfo = EmployeeInfo.getEmployeeInfo();
-
         employeeInfo.setFirstName("John");
         employeeInfo.setLastName("Wick");
         employeeInfo.setDriverLicenseNumber("012345678");
@@ -42,10 +29,6 @@ public class PIM_01_Employee extends BasePage {
         employeeInfo.setMaritalStatus("Married");
         employeeInfo.setDateOfBirth("1999-15-03");
         employeeInfo.setGenderStatus("Male");
-
-        loginPage.enterToUserNameTextbox(GlobalConstance.ADMIN_USERNAME);
-        loginPage.enterToPasswordTextbox(GlobalConstance.ADMIN_PASSWORD);
-        dashboardPage = loginPage.clickToLoginButton();
     }
     @Test(priority = 1)
     public void Employee_01_Add_New(){
@@ -60,9 +43,9 @@ public class PIM_01_Employee extends BasePage {
     public void Employee_2_Upload_Avatar(){
         personalDetailPage.clickToEmployeeAvatarImage();
         Dimension beforeUpload = personalDetailPage.getAvatarSize();
-        uploadMultipleFiles(avatarImageName);
+        basePage.uploadMultipleFiles(avatarImageName);
         personalDetailPage.clickToSaveButtonAtProfileContainer();
-        Assert.assertTrue(isSuccessMessageDisplayed());
+        Assert.assertTrue(basePage.isSuccessMessageDisplayed());
         Assert.assertTrue(personalDetailPage.isProfileAvatarUpdateSuccess(beforeUpload));
 
     }
@@ -77,8 +60,8 @@ public class PIM_01_Employee extends BasePage {
         personalDetailPage.setPersonalDetail(employeeInfo);
         personalDetailPage.clickSaveButtonAtPersonalDetailContainer();
 
-        Assert.assertTrue(isSuccessMessageDisplayed());
-        waitAllLoadingIconInvisible();
+        Assert.assertTrue(basePage.isSuccessMessageDisplayed());
+        basePage.waitAllLoadingIconInvisible();
 
         Assert.assertEquals(personalDetailPage.getFirstNameTextboxValue(),employeeInfo.getFirstName());
         Assert.assertEquals(personalDetailPage.getLastNameTextboxValue(),employeeInfo.getLastName());
@@ -90,8 +73,5 @@ public class PIM_01_Employee extends BasePage {
         Assert.assertEquals(personalDetailPage.getDateOfBirthTextboxValue(),employeeInfo.getDateOfBirth());
         Assert.assertTrue(personalDetailPage.isMaleGenderRadioSelected(employeeInfo.getGenderStatus()));
     }
-    @AfterClass
-    void tearDown(){
-        closeBrowser();
-    }
+    
 }

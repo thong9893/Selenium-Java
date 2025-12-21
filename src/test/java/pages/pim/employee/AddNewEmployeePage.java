@@ -1,5 +1,6 @@
 package pages.pim.employee;
 
+import org.openqa.selenium.WebDriver;
 import pageUIs.AddNewEmployeePageUI;
 import pages.PageGenerator;
 import support.BasePage;
@@ -7,6 +8,9 @@ import support.BasePage;
 import static support.BasePage.*;
 
 public class AddNewEmployeePage extends BasePage {
+    public AddNewEmployeePage(WebDriver driver){
+        super(driver);
+    }
     public void enterToFirstNameTextbox(String firstName) {
         waitForElementVisible(AddNewEmployeePageUI.FIRSTNAME_TEXTBOX);
         sendKeyToElement(AddNewEmployeePageUI.FIRSTNAME_TEXTBOX,firstName);
@@ -22,6 +26,6 @@ public class AddNewEmployeePage extends BasePage {
     public PersonalDetailPage clickToSaveButtonAtEmployeeContainer() {
         waitForElementClickAble(AddNewEmployeePageUI.SAVE_BUTTON_AT_ADD_EMPLOYEE_CONTAINER);
         clickToElement(AddNewEmployeePageUI.SAVE_BUTTON_AT_ADD_EMPLOYEE_CONTAINER);
-        return PageGenerator.getPersonalDetailPage();
+        return PageGenerator.getPersonalDetailPage(driver);
     }
 }
