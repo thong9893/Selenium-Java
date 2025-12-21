@@ -1,100 +1,95 @@
-# Selenium Java Demo Project (OrangeHRM)
+# Selenium Java — OrangeHRM Demo
 
-## Overview
+Lightweight Selenium + TestNG project (Page Object Model) for OrangeHRM UI tests. Includes Allure reporting configuration.
 
-This is a sample automated testing project using Selenium WebDriver with Java and Maven, targeting the OrangeHRM application. The codebase follows the Page Object Model and includes UI locators, test specifications, utility classes, and configuration files needed to run the test suite.
+## Quick start
 
-## Prerequisites
-
-- Java JDK 8 or 11+
+Prerequisites:
+- Java 11+ (project uses modern Java features)
 - Maven 3.6+
-- A supported browser (Chrome or Firefox) and the corresponding WebDriver (chromedriver/geckodriver) available in `PATH` or configured in your setup
+- Browser driver (Chrome/Firefox) available on `PATH` or provided via system property
 
-## Installation
-
-1. Clone the repository:
+Clone and download dependencies:
 
 ```bash
 git clone <repo-url>
 cd selenium-java
-```
-
-2. Download dependencies (first run):
-
-```bash
-# Selenium Java Demo Project (OrangeHRM)
-
-## Overview
-
-This is a sample automated testing project using Selenium WebDriver with Java and Maven, targeting the OrangeHRM application. The codebase follows the Page Object Model and includes UI locators, test specifications, utility classes, and configuration files needed to run the test suite.
-
-## Prerequisites
-
-- Java JDK 8 or 11+
-- Maven 3.6+
-- A supported browser (Chrome or Firefox) and the corresponding WebDriver (chromedriver/geckodriver) available in `PATH` or configured in your setup
-
-## Installation
-
-1. Clone the repository:
-
-```bash
-git clone <repo-url>
-cd selenium-java
-```
-
-2. Download dependencies (first run):
-
-```bash
 mvn clean verify -DskipTests
 ```
 
-## Running tests
+Run tests (examples):
 
-- Run the full test suite:
+- Run full suite:
 
 ```bash
 mvn test
 ```
 
-- Run a single test class (example: `PIM_01_Employee` in `specs` package):
+- Run a single test class (example):
 
 ```bash
 mvn -Dtest=specs.PIM_01_Employee test
 ```
 
-- Run tests with a specific browser (example using system property `browser`):
+- Run with browser property (if supported by `DriverFactory` / `BaseTest`):
 
 ```bash
 mvn test -Dbrowser=chrome
-mvn test -Dbrowser=firefox
 ```
 
-Note: If the project does not already support a `browser` property, update your test setup or `BasePage` to read `System.getProperty("browser")` and initialise the corresponding WebDriver.
-
-## Project structure (high level)
-
-- `src/test/java/pages` — Page Object classes (examples: `PageGenerator.java`, `LoginPage.java`, `DashboardPage.java`, `AddNewEmployeePage.java`, `ContactDetailPage.java`, `EmergencyContactPage.java`, `EmployeeListPage.java`, `EmployeeTabs.java`, `PersonalDetailPage.java`)
-- `src/test/java/pageUIs` — UI locator definitions
-- `src/test/java/specs` — Test specifications / test cases
-- `src/test/java/support` — Base utilities and helpers (e.g. `BasePage.java`, `GlobalConstance.java`)
-- `src/test/resources` — Configuration and test data (e.g. `orangeHRM.xml`)
-- `src/test/java/pojoData` — POJO classes for test data
-
-Notable folders:
-
-- `pages/pim/employee` — PIM / Employee related page objects (Add, Personal, Contact, etc.)
-
-## Configuration
-
-- Update `src/test/resources/orangeHRM.xml` to set test URL, credentials, and any environment-specific settings.
-- To set WebDriver executables, either place them on `PATH` or pass a system property and use it in your setup, e.g.:
+Set explicit WebDriver binary path (Windows example):
 
 ```bash
-mvn test -Dwebdriver.chrome.driver=/path/to/chromedriver
+mvn test -Dwebdriver.chrome.driver=C:/drivers/chromedriver.exe
 ```
 
-or export an environment variable in CI before running tests.
+Important: run tests with Maven (not only from IDE) to ensure Surefire `argLine` and Allure AspectJ agent (if configured) are applied.
+
+## Allure reporting
+
+This project writes Allure results to `allure-results` at the project root.
+
+- After a test run, generate/serve the report with the Allure CLI:
+
+```bash
+mvn test
+allure serve allure-results
+```
+
+Or open an already generated report:
+
+```bash
+allure open allure-results
+```
+
+If you don't have Allure CLI installed, see https://docs.qameta.io/allure/
+
+## Project layout (selected)
+
+- `pom.xml` — Maven build, dependencies (Selenium, TestNG, Allure) and Surefire configuration
+- `src/test/java/pages` — Page Objects
+- `src/test/java/pageUIs` — locators/constants for pages
+- `src/test/java/specs` — Test classes (TestNG)
+- `src/test/java/support` — base classes and test utilities (`BasePage`, `BaseTest`, `DriverFactory`)
+- `src/test/resources` — test configuration and test data
+
+## Conventions & notes
+
+- Tests use the Page Object Model; prefer adding `@Step` annotations on page methods to generate clear Allure steps.
+- Assertions have been consolidated into page-level verification methods where appropriate.
+- To change test data, update `src/test/java/testData/pojoData/EmployeeInfo.java` or the test's data-builder.
+- Running from IDE may skip Surefire `argLine` settings — prefer `mvn test` for consistent Allure behavior.
+
+
+
+
+
+
+
+
+
+
+
 
 
 
