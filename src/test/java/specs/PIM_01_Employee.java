@@ -33,7 +33,7 @@ public class PIM_01_Employee extends BaseTest {
     @Test(priority = 1)
     public void Employee_01_Add_New(){
         employeeListPage = dashboardPage.clickToPIMPage();
-        addNewEmployeePage = employeeListPage.clickToEmployeeButton();
+        addNewEmployeePage = employeeListPage.clickAddEmployeeButton();
         addNewEmployeePage.enterToFirstNameTextbox(employeeInfo.getFirstName());
         addNewEmployeePage.enterToLastNameTextbox(employeeInfo.getLastName());
         employeeInfo.setEmployeeId(addNewEmployeePage.getEmployeeID());
@@ -45,8 +45,7 @@ public class PIM_01_Employee extends BaseTest {
         Dimension beforeUpload = personalDetailPage.getAvatarSize();
         basePage.uploadMultipleFiles(avatarImageName);
         personalDetailPage.clickToSaveButtonAtProfileContainer();
-        Assert.assertTrue(basePage.isSuccessMessageDisplayed());
-        Assert.assertTrue(personalDetailPage.isProfileAvatarUpdateSuccess(beforeUpload));
+        personalDetailPage.verifyAvatarUpdated(beforeUpload);
 
     }
     @Test(priority = 3)
@@ -54,24 +53,14 @@ public class PIM_01_Employee extends BaseTest {
         personalDetailPage.openPersonalDetailPage();
         personalDetailPage.enterToFirstNameTextbox(employeeInfo.getFirstName());
         personalDetailPage.enterToLastNameTextbox(employeeInfo.getLastName());
-
         Assert.assertEquals(personalDetailPage.getEmployeeID(),employeeInfo.getEmployeeId());
 
         personalDetailPage.setPersonalDetail(employeeInfo);
         personalDetailPage.clickSaveButtonAtPersonalDetailContainer();
-
         Assert.assertTrue(basePage.isSuccessMessageDisplayed());
-        basePage.waitAllLoadingIconInvisible();
 
-        Assert.assertEquals(personalDetailPage.getFirstNameTextboxValue(),employeeInfo.getFirstName());
-        Assert.assertEquals(personalDetailPage.getLastNameTextboxValue(),employeeInfo.getLastName());
-        Assert.assertEquals(personalDetailPage.getEmployeeID(),employeeInfo.getEmployeeId());
-        Assert.assertEquals(personalDetailPage.getDriverLicenseTextboxValue(),employeeInfo.getDriverLicenseNumber());
-        Assert.assertEquals(personalDetailPage.getLicenseExpiredDateTextboxValue(),employeeInfo.getLicenseExpiredDate());
-        Assert.assertEquals(personalDetailPage.getNationalityDropdownValue(),employeeInfo.getNationality());
-        Assert.assertEquals(personalDetailPage.getMaritalStatusDropdownValue(),employeeInfo.getMaritalStatus());
-        Assert.assertEquals(personalDetailPage.getDateOfBirthTextboxValue(),employeeInfo.getDateOfBirth());
-        Assert.assertTrue(personalDetailPage.isMaleGenderRadioSelected(employeeInfo.getGenderStatus()));
+        basePage.waitAllLoadingIconInvisible();
+        personalDetailPage.verifyPersonalDetails(employeeInfo);
     }
     
 }

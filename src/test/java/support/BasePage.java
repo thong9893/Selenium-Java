@@ -5,8 +5,10 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageUIs.BasePageUI;
+import io.qameta.allure.Step;
 import java.time.Duration;
 import java.util.List;
+import java.util.Arrays;
 
 public class BasePage {
     public WebDriverWait wait;
@@ -67,6 +69,7 @@ public class BasePage {
     public String getElementAttribute(String locator){
         return driver.findElement(getByLocator(getDynamicString(locator))).getAttribute("value");
     }
+    @Step("Upload files: {0}")
     public void uploadMultipleFiles(String... fileName){
         String filePath = GlobalConstance.UPLOAD_PATH;
         String fullFileName = "";

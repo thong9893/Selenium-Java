@@ -8,6 +8,7 @@
             <parameter name="browser" value="chrome"/>
             <classes>
                 <class name="specs.PIM_01_Employee"/>
+
             </classes>
     </test>
 </suite>
