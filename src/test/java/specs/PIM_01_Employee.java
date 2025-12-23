@@ -4,12 +4,18 @@ import org.openqa.selenium.Dimension;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Description;
 import pages.pim.employee.AddNewEmployeePage;
 import pages.pim.employee.EmployeeListPage;
 import pages.pim.employee.PersonalDetailPage;
 import testData.pojoData.EmployeeInfo;
 import support.BaseTest;
 
+@Epic("PIM - Employee Management")
+@Feature("Employee: Add / Avatar / Personal Details")
+@Description("Suite: Verify adding a new employee, uploading avatar and updating personal details.")
 public class PIM_01_Employee extends BaseTest {
     
     private EmployeeListPage employeeListPage;
@@ -61,6 +67,7 @@ public class PIM_01_Employee extends BaseTest {
 
         basePage.waitAllLoadingIconInvisible();
         personalDetailPage.verifyPersonalDetails(employeeInfo);
+
     }
     
 }
